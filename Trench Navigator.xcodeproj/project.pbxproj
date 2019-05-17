@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0422EF228F309E005C01C5 /* Submarine.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 1B0422EE228F309E005C01C5 /* Submarine.xcf */; };
 		1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D792228DE548007D26F5 /* AppDelegate.swift */; };
 		1BF4D799228DE548007D26F5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D798228DE548007D26F5 /* GameScene.swift */; };
 		1BF4D79B228DE548007D26F5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D79A228DE548007D26F5 /* GameViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0422EE228F309E005C01C5 /* Submarine.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Submarine.xcf; path = "Trench Navigator/Gimp Projects/Submarine.xcf"; sourceTree = SOURCE_ROOT; };
 		1BF4D78F228DE548007D26F5 /* Trench Navigator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trench Navigator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF4D792228DE548007D26F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BF4D798228DE548007D26F5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -37,9 +39,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B0422F0228F30A6005C01C5 /* Gimp Projects */ = {
+			isa = PBXGroup;
+			children = (
+				1B0422EE228F309E005C01C5 /* Submarine.xcf */,
+			);
+			path = "Gimp Projects";
+			sourceTree = "<group>";
+		};
 		1BF4D786228DE548007D26F5 = {
 			isa = PBXGroup;
 			children = (
+				1B0422F0228F30A6005C01C5 /* Gimp Projects */,
 				1BF4D791228DE548007D26F5 /* Trench Navigator */,
 				1BF4D790228DE548007D26F5 /* Products */,
 			);
@@ -127,6 +138,7 @@
 			files = (
 				1BF4D79E228DE548007D26F5 /* Main.storyboard in Resources */,
 				1BF4D7A0228DE549007D26F5 /* Assets.xcassets in Resources */,
+				1B0422EF228F309E005C01C5 /* Submarine.xcf in Resources */,
 				1BF4D7A3228DE549007D26F5 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
