@@ -98,12 +98,14 @@ class WaypointList {
                 head!.next = newTail
                 tail = newTail
                 tail!.prev = head
+                tail!.waypoint.updateLine(head!.waypoint.endCircle.position)
             }
         }
         else {
             tail!.next = newTail
             newTail.prev = tail
             tail = newTail
+            newTail.waypoint.updateLine(newTail.prev!.waypoint.endCircle.position)
         }
     }
 }

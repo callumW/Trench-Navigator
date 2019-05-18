@@ -43,7 +43,7 @@ class GameScene: SKScene {
     */
     func addWaypoint(_ point: CGPoint) {
         if moving {
-            return
+            //return
         }
         
         moving = true
@@ -72,10 +72,8 @@ class GameScene: SKScene {
     }
     
     override func didEvaluateActions() {
-        if moving {
-            if let waypointNode = waypoints.current() {
-                waypointNode.waypoint.updateLine(self.player.position)
-            }
+        if let waypointNode = waypoints.current() {
+            waypointNode.waypoint.updateLine(self.player.position)
         }
     }
 }
