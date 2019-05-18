@@ -57,8 +57,8 @@ class GameScene: SKScene {
         let moveAction = SKAction.move(to: point, duration: 1.0)
         
         // display waypoint
-        self.waypoint = Waypoint(point)
-        self.waypoint.addTo(scene: self)
+        self.waypoint = Waypoint(endPoint: point, startPoint: player.position, scene: self)
+
         
         player.run(SKAction.sequence([rotateAction, moveAction]), completion: self.removeWaypoint)
     }

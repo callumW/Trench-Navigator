@@ -13,19 +13,38 @@ import SpriteKit
 class Waypoint {
     var endCircle: SKShapeNode = SKShapeNode(circleOfRadius: 10)
     
-    init(_ point: CGPoint) {
-        endCircle.position = point
-        endCircle.fillColor = SKColor.green
-        endCircle.strokeColor = SKColor.green
-    }
+    var path: CGMutablePath = CGMutablePath()
+    var line: SKShapeNode = SKShapeNode()
+    var scene: GameScene!
     
-    func addTo(scene: GameScene) {
-        scene.addChild(endCircle)
+    init(endPoint: CGPoint, startPoint: CGPoint, scene: GameScene) {
+        self.endCircle.position = endPoint
+        self.endCircle.fillColor = SKColor.green
+        self.endCircle.strokeColor = SKColor.green
+        self.scene = scene
+        
+        self.path.move(to: startPoint)
+        self.path.addLine(to: endPoint)
+        
+        self.line.path = self.path
+        self.line.strokeColor = SKColor.green
+        self.line.lineWidth = 2
+
+        scene.addChild(self.endCircle)
+        scene.addChild(self.line)
     }
     
     func remove() {
         if endCircle.parent != nil {
             endCircle.removeFromParent()
         }
+        
+        if self.line.parent != nil {
+            self.line.removeFromParent()
+        }
+    }
+    
+    func updateLine(_ newStartPoint: CGPoint) {
+        
     }
 }
