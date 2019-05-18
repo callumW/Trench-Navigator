@@ -55,6 +55,22 @@ class Waypoint {
         self.path.addLine(to: newStartPoint)
         self.line.path = self.path
     }
+    
+    func startMove(player: SKSpriteNode, complete: @escaping () -> Void) {
+        // workout orientation for player
+        let point = endCircle.position
+        let adjacent = player.position.x - point.x
+        let oposite = player.position.y - point.y
+        
+        let angle = atan2(oposite, adjacent) + 90 * (CGFloat.pi / 180)
+        
+        let rotateAction = SKAction.rotate(toAngle: angle, duration: 0.3, shortestUnitArc: true)    // let swift choose the direction to rotate
+        
+        let moveAction = SKAction.move(to: point, duration: 1.0)
+                
+        
+        player.run(SKAction.sequence([rotateAction, moveAction]), completion: complete)
+    }
 }
 
 class WaypointNode {
@@ -63,49 +79,48 @@ class WaypointNode {
     }
     var waypoint: Waypoint
     var next: WaypointNode? = nil
-    weak var prev: WaypointNode? = nil
 }
 
-class WaypointList {
+class WaypointPath {
     
-    var head: WaypointNode? = nil
-    var tail: WaypointNode? = nil
+    var scene: GameScene!
+    var waypoints: WaypointNode! = nil
+    var player: SKSpriteNode!
     
-    func popHead() {
-        if head != nil {
-            if let tmp = head!.next {
-                head = tmp
-                tmp.prev = nil
-            }
-            else {
-                head = nil
-            }
-            
-        }
+    init(_ scene: GameScene, player: SKSpriteNode) {
+        self.scene = scene
+        self.player = player
     }
     
-    func current() -> WaypointNode? {
-        return head
-    }
     
-    func add(_ p: Waypoint) {
-        let newTail = WaypointNode(p)
-        if tail == nil {
-            if head == nil {
-                head = newTail
+    func addWaypoint(point: CGPoint) {
+        if waypoints != nil {
+            var tmp = waypoints
+            while (tmp!.next != nil) {
+                tmp = tmp!.next
             }
-            else {
-                head!.next = newTail
-                tail = newTail
-                tail!.prev = head
-                tail!.waypoint.updateLine(head!.waypoint.endCircle.position)
-            }
+            tmp!.next = WaypointNode(Waypoint(endPoint: point, startPoint: tmp!.waypoint.endCircle.position, scene: self.scene))
         }
         else {
-            tail!.next = newTail
-            newTail.prev = tail
-            tail = newTail
-            newTail.waypoint.updateLine(newTail.prev!.waypoint.endCircle.position)
+            waypoints = WaypointNode(Waypoint(endPoint: point, startPoint: self.player.position, scene: self.scene))
+            waypoints!.waypoint.startMove(player: player, complete: self.removeHeadWaypoint)
+        }
+
+    }
+    
+    func updateLineLength() {
+        if waypoints != nil {
+            let waypoint = waypoints!.waypoint
+            waypoint.updateLine(self.player.position)
+        }
+    }
+    
+    func removeHeadWaypoint() {
+        if waypoints != nil {
+            waypoints = waypoints!.next
+            if waypoints != nil {
+                waypoints!.waypoint.startMove(player: player, complete: self.removeHeadWaypoint)
+            }
         }
     }
 }

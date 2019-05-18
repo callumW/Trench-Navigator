@@ -11,13 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
+    var waypointPath: WaypointPath!
     
-    // var line: SKShapeNode!
-    var waypoint: Waypoint!
-    var moving: Bool = false
-    
-    var waypoints: WaypointList = WaypointList()
-
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.black
         
@@ -25,6 +20,8 @@ class GameScene: SKScene {
         player.zRotation = CGFloat.pi * 1.5;
         
         addChild(player)
+        
+        self.waypointPath = WaypointPath(self, player: player)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -42,38 +39,14 @@ class GameScene: SKScene {
         Add waypoint to player path
     */
     func addWaypoint(_ point: CGPoint) {
-        if moving {
-            //return
-        }
-        
-        moving = true
-        
-        // workout orientation for player
-        let adjacent = player.position.x - point.x
-        let oposite = player.position.y - point.y
-        
-        let angle = atan2(oposite, adjacent) + 90 * (CGFloat.pi / 180)
-        
-        let rotateAction = SKAction.rotate(toAngle: angle, duration: 0.3, shortestUnitArc: true)    // let swift choose the direction to rotate
-        
-        let moveAction = SKAction.move(to: point, duration: 1.0)
-        
-        // display waypoint
-        self.waypoints.add(Waypoint(endPoint: point, startPoint: player.position, scene: self))
-
-        
-        player.run(SKAction.sequence([rotateAction, moveAction]), completion: self.removeWaypoint)
+        self.waypointPath.addWaypoint(point: point)
     }
     
     func removeWaypoint() {
         print("removing waypoint")
-        self.waypoints.popHead()
-        moving = false
     }
     
     override func didEvaluateActions() {
-        if let waypointNode = waypoints.current() {
-            waypointNode.waypoint.updateLine(self.player.position)
-        }
+        self.waypointPath.updateLineLength()
     }
 }
