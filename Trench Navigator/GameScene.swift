@@ -15,6 +15,8 @@ class GameScene: SKScene {
     // var line: SKShapeNode!
     var waypoint: Waypoint!
     var moving: Bool = false
+    
+    var waypoints: WaypointList = WaypointList()
 
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.black
@@ -57,7 +59,7 @@ class GameScene: SKScene {
         let moveAction = SKAction.move(to: point, duration: 1.0)
         
         // display waypoint
-        self.waypoint = Waypoint(endPoint: point, startPoint: player.position, scene: self)
+        self.waypoints.add(Waypoint(endPoint: point, startPoint: player.position, scene: self))
 
         
         player.run(SKAction.sequence([rotateAction, moveAction]), completion: self.removeWaypoint)
@@ -65,13 +67,15 @@ class GameScene: SKScene {
     
     func removeWaypoint() {
         print("removing waypoint")
-        self.waypoint.remove()
+        self.waypoints.popHead()
         moving = false
     }
     
     override func didEvaluateActions() {
         if moving {
-            self.waypoint.updateLine(player.position)
+            if let waypointNode = waypoints.current() {
+                waypointNode.waypoint.updateLine(self.player.position)
+            }
         }
     }
 }

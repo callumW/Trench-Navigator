@@ -35,6 +35,10 @@ class Waypoint {
         scene.addChild(self.line)
     }
     
+    deinit {
+        remove()
+    }
+    
     func remove() {
         if endCircle.parent != nil {
             endCircle.removeFromParent()
@@ -50,5 +54,56 @@ class Waypoint {
         self.path.move(to: self.endCircle.position)
         self.path.addLine(to: newStartPoint)
         self.line.path = self.path
+    }
+}
+
+class WaypointNode {
+    init(_ p: Waypoint) {
+        self.waypoint = p
+    }
+    var waypoint: Waypoint
+    var next: WaypointNode? = nil
+    weak var prev: WaypointNode? = nil
+}
+
+class WaypointList {
+    
+    var head: WaypointNode? = nil
+    var tail: WaypointNode? = nil
+    
+    func popHead() {
+        if head != nil {
+            if let tmp = head!.next {
+                head = tmp
+                tmp.prev = nil
+            }
+            else {
+                head = nil
+            }
+            
+        }
+    }
+    
+    func current() -> WaypointNode? {
+        return head
+    }
+    
+    func add(_ p: Waypoint) {
+        let newTail = WaypointNode(p)
+        if tail == nil {
+            if head == nil {
+                head = newTail
+            }
+            else {
+                head!.next = newTail
+                tail = newTail
+                tail!.prev = head
+            }
+        }
+        else {
+            tail!.next = newTail
+            newTail.prev = tail
+            tail = newTail
+        }
     }
 }
