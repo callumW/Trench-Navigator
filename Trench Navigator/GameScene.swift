@@ -68,4 +68,10 @@ class GameScene: SKScene {
         self.waypoint.remove()
         moving = false
     }
+    
+    override func didEvaluateActions() {
+        if moving {
+            self.waypoint.updateLine(player.position)
+        }
+    }
 }

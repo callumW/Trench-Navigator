@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SpriteKit
 
+
 class Waypoint {
     var endCircle: SKShapeNode = SKShapeNode(circleOfRadius: 10)
     
@@ -45,6 +46,9 @@ class Waypoint {
     }
     
     func updateLine(_ newStartPoint: CGPoint) {
-        
+        self.path = CGMutablePath()
+        self.path.move(to: self.endCircle.position)
+        self.path.addLine(to: newStartPoint)
+        self.line.path = self.path
     }
 }
