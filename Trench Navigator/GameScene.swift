@@ -16,7 +16,8 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.white
         
-        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+        player.position = CGPoint(x: player.size.height / 2, y: size.height * 0.5)
+        player.zRotation = CGFloat.pi * 1.5;
         
         addChild(player)
     }
@@ -36,6 +37,17 @@ class GameScene: SKScene {
         Add waypoint to player path
     */
     func addWaypoint(_ point: CGPoint) {
-        player.run(SKAction.sequence([SKAction.move(to: point, duration: 1.0)]))
+        
+        // workout orientation for player
+        let adjacent = player.position.x - point.x
+        let oposite = player.position.y - point.y
+        
+        let angle = atan2(oposite, adjacent) + 90 * (CGFloat.pi / 180)
+        
+        let rotateAction = SKAction.rotate(toAngle: angle, duration: 0.3, shortestUnitArc: true)    // let swift choose the direction to rotate
+        
+        let moveAction = SKAction.move(to: point, duration: 1.0)
+        
+        player.run(SKAction.sequence([rotateAction, moveAction]))
     }
 }
