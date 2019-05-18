@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B32E46A2290148E00C02419 /* Waypoint.swift */; };
 		1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D792228DE548007D26F5 /* AppDelegate.swift */; };
 		1BF4D799228DE548007D26F5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D798228DE548007D26F5 /* GameScene.swift */; };
 		1BF4D79B228DE548007D26F5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D79A228DE548007D26F5 /* GameViewController.swift */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		1B0422F1228F36D5005C01C5 /* Submarine.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Submarine.xcf; sourceTree = "<group>"; };
+		1B32E46A2290148E00C02419 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		1BF4D78F228DE548007D26F5 /* Trench Navigator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trench Navigator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF4D792228DE548007D26F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BF4D798228DE548007D26F5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				1BF4D79F228DE549007D26F5 /* Assets.xcassets */,
 				1BF4D7A1228DE549007D26F5 /* LaunchScreen.storyboard */,
 				1BF4D7A4228DE549007D26F5 /* Info.plist */,
+				1B32E46A2290148E00C02419 /* Waypoint.swift */,
 			);
 			path = "Trench Navigator";
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */,
 				1BF4D799228DE548007D26F5 /* GameScene.swift in Sources */,
 				1BF4D79B228DE548007D26F5 /* GameViewController.swift in Sources */,
 				1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */,

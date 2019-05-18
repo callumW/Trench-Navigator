@@ -13,21 +13,16 @@ class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
     
     // var line: SKShapeNode!
-    var waypoint: SKShapeNode!
+    var waypoint: Waypoint!
     var moving: Bool = false
-    
-    
+
     override func didMove(to view: SKView) {
-        backgroundColor = SKColor.white
+        backgroundColor = SKColor.black
         
         player.position = CGPoint(x: player.size.height / 2, y: size.height * 0.5)
         player.zRotation = CGFloat.pi * 1.5;
         
         addChild(player)
-        
-        
-        waypoint = SKShapeNode(circleOfRadius: 10)
-        waypoint.fillColor = SKColor.green
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -37,7 +32,7 @@ class GameScene: SKScene {
         }
         
         let touchLocation = touch.location(in: self)
-        
+
         addWaypoint(touchLocation)
     }
     
@@ -62,20 +57,15 @@ class GameScene: SKScene {
         let moveAction = SKAction.move(to: point, duration: 1.0)
         
         // display waypoint
-        waypoint.position = point
-        if waypoint.parent != nil {
-            
-        }
-        else {
-            addChild(waypoint)
-        }
+        self.waypoint = Waypoint(point)
+        self.waypoint.addTo(scene: self)
         
         player.run(SKAction.sequence([rotateAction, moveAction]), completion: self.removeWaypoint)
     }
     
     func removeWaypoint() {
         print("removing waypoint")
-        waypoint.removeFromParent()
+        self.waypoint.remove()
         moving = false
     }
 }
