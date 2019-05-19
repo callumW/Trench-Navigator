@@ -42,10 +42,6 @@ class GameScene: SKScene {
         self.waypointPath.addWaypoint(point: point)
     }
     
-    func removeWaypoint() {
-        print("removing waypoint")
-    }
-    
     override func didEvaluateActions() {
         self.waypointPath.updateLineLength()
     }
