@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SpriteKit
 
+func distance(_ a: CGPoint,_ b: CGPoint) -> CGFloat {
+    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2))
+}
+
 
 class Waypoint {
     var endCircle: SKShapeNode = SKShapeNode(circleOfRadius: 10)
@@ -17,6 +21,8 @@ class Waypoint {
     var path: CGMutablePath = CGMutablePath()
     var line: SKShapeNode = SKShapeNode()
     var scene: GameScene!
+    
+    let SUBMARINE_SPEED: CGFloat = 200    // submarine moves 200 pixels per second
     
     init(endPoint: CGPoint, startPoint: CGPoint, scene: GameScene) {
         self.endCircle.position = endPoint
@@ -66,7 +72,14 @@ class Waypoint {
         
         let rotateAction = SKAction.rotate(toAngle: angle, duration: 0.3, shortestUnitArc: true)    // let swift choose the direction to rotate
         
-        let moveAction = SKAction.move(to: point, duration: 1.0)
+        /*
+            Calculate the time it will take to move the distance required
+        */
+        let totalDistance = distance(player.position, point)
+        
+        let timeToTravel = totalDistance / SUBMARINE_SPEED
+        
+        let moveAction = SKAction.move(to: point, duration: Double(timeToTravel))
                 
         
         player.run(SKAction.sequence([rotateAction, moveAction]), completion: complete)
