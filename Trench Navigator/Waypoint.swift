@@ -16,7 +16,7 @@ func distance(_ a: CGPoint,_ b: CGPoint) -> CGFloat {
 
 
 class Waypoint {
-    var endCircle: SKShapeNode = SKShapeNode(circleOfRadius: 10)
+    var endCircle: SKShapeNode = SKShapeNode(circleOfRadius: 3)
     
     var path: CGMutablePath = CGMutablePath()
     var line: SKShapeNode = SKShapeNode()
@@ -35,7 +35,7 @@ class Waypoint {
         
         self.line.path = self.path
         self.line.strokeColor = SKColor.green
-        self.line.lineWidth = 2
+        self.line.lineWidth = 1
 
         scene.addChild(self.endCircle)
         scene.addChild(self.line)
