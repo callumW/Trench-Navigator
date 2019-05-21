@@ -35,7 +35,7 @@ class Waypoint {
         
         self.line.path = self.path
         self.line.strokeColor = SKColor.green
-        self.line.lineWidth = 2
+        self.line.lineWidth = 1
 
         scene.addChild(self.endCircle)
         scene.addChild(self.line)
