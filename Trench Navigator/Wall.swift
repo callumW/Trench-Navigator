@@ -29,4 +29,9 @@ class Wall {
         }
     }
     
+    func willCollide(waypoint: Waypoint) -> Bool {
+        
+        return false
+    }
+    
 }
