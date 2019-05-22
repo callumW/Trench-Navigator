@@ -23,7 +23,7 @@ class GameScene: SKScene {
         addChild(player)
         
         self.waypointPath = WaypointPath(self, player: player)
-        wall = Wall(scene: self, position: CGPoint(x: size.width / 2, y: size.height / 2), size: CGSize(width: 10, height: size.height))
+        wall = Wall(scene: self, position: CGPoint(x: size.width / 2, y: size.height / 2))
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

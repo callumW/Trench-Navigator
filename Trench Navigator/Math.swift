@@ -46,38 +46,23 @@ class Line {
         }
     }
     
-    /*
-        Recall, to find point of intersection of two lines:
-     
-    */
-    func intersectionPoint(line: Line) -> CGPoint? {
-        
-        switch (self.type) {
-        case .GRADIENT:
-            let deltaC = line.c - self.c
-            let deltaM = self.m - line.m
-            
-            let x = deltaC / deltaM
-            let y = self.getY(x) 
-            break;
-        case .HORIZONTAL:
-            
-            break;
-        case .VERTICAL:
-            break;
-        }
-        
-        // now we can workout y
-        
-        
-        if y.isInfinite {
-            return nil
-        }
-        
-        return CGPoint(x: x, y: y)
+    func doesIntersect(line: Line) -> Bool {
+        return false
     }
     
-    func getY(_ x: Double) -> Double {
-        return self.m * x + self.c
+    func doesIntersect(rect: CGRect) -> Bool {
+        
+        // lets first get lines to define our faces
+        let topLeft = CGPoint(x: rect.minX, y: rect.maxY)
+        let topRight = CGPoint(x: rect.maxX, y: rect.maxY)
+        let bottomLeft = CGPoint(x: rect.minX, y: rect.minY)
+        let bottomRight = CGPoint(x: rect.maxX, y: rect.minY)
+
+        let topLine = Line(a: topLeft, b: topRight)
+        let leftLine = Line(a: topLeft, b: bottomLeft)
+        let bottomLine = Line(a: bottomLeft, b: bottomRight)
+        let rightLine = Line(a: topRight, b: bottomRight)
+
+        return doesIntersect(line: topLine) || doesIntersect(line: leftLine) || doesIntersect(line: bottomLine) || doesIntersect(line: rightLine)
     }
 }

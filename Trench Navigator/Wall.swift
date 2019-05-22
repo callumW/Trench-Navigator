@@ -23,6 +23,10 @@ class Wall {
         self.scene.addChild(sprite)
     }
     
+    convenience init(scene: GameScene, position: CGPoint) {
+        self.init(scene: scene, position: position, size: CGSize(width: 40, height: 40))
+    }
+    
     deinit {
         if sprite.parent != nil {
             sprite.removeFromParent()
@@ -30,7 +34,6 @@ class Wall {
     }
     
     func willCollide(waypoint: Waypoint) -> Bool {
-        
         return false
     }
     
