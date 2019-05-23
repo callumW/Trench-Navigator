@@ -22,9 +22,14 @@ class Waypoint {
     var line: SKShapeNode = SKShapeNode()
     var scene: GameScene!
     
+    let start: CGPoint
+    let end: CGPoint
+    
     let SUBMARINE_SPEED: CGFloat = 200    // submarine moves 200 pixels per second
     
     init(endPoint: CGPoint, startPoint: CGPoint, scene: GameScene) {
+        start = startPoint
+        end = endPoint
         self.endCircle.position = endPoint
         self.endCircle.fillColor = SKColor.green
         self.endCircle.strokeColor = SKColor.green
@@ -84,6 +89,10 @@ class Waypoint {
         
         player.run(SKAction.sequence([rotateAction, moveAction]), completion: complete)
     }
+    
+    func toLine() -> Line {
+        return Line(a: start, b: end)
+    }
 }
 
 class WaypointNode {
@@ -99,23 +108,45 @@ class WaypointPath {
     var scene: GameScene!
     var waypoints: WaypointNode! = nil
     var player: SKSpriteNode!
+    var wall: Wall! = nil
     
     init(_ scene: GameScene, player: SKSpriteNode) {
         self.scene = scene
         self.player = player
     }
     
+    func addWall(_ wall: Wall) {
+        self.wall = wall
+    }
     
     func addWaypoint(point: CGPoint) {
+        
+        
+
+
         if waypoints != nil {
             var tmp = waypoints
             while (tmp!.next != nil) {
                 tmp = tmp!.next
             }
-            tmp!.next = WaypointNode(Waypoint(endPoint: point, startPoint: tmp!.waypoint.endCircle.position, scene: self.scene))
+            let waypoint = Waypoint(endPoint: point, startPoint: tmp!.waypoint.endCircle.position, scene: self.scene)
+            if self.wall != nil {
+                if self.wall.willCollide(waypoint: waypoint) {
+                    print("Not placing waypoint because it would collide with wall!")
+                    return
+                }
+            }
+            tmp!.next = WaypointNode(waypoint)
         }
         else {
-            waypoints = WaypointNode(Waypoint(endPoint: point, startPoint: self.player.position, scene: self.scene))
+            let waypoint = Waypoint(endPoint: point, startPoint: player.position, scene: self.scene)
+            if self.wall != nil {
+                if self.wall.willCollide(waypoint: waypoint) {
+                    print("Not placing waypoint because it would collide with wall!")
+                    return
+                }
+            }
+            waypoints = WaypointNode(waypoint)
             waypoints!.waypoint.startMove(player: player, complete: self.removeHeadWaypoint)
         }
 

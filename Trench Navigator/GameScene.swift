@@ -12,6 +12,7 @@ import GameplayKit
 class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
     var waypointPath: WaypointPath!
+    var wall: Wall! = nil
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.black
@@ -22,6 +23,8 @@ class GameScene: SKScene {
         addChild(player)
         
         self.waypointPath = WaypointPath(self, player: player)
+        wall = Wall(scene: self, position: CGPoint(x: size.width / 2, y: size.height / 2))
+        self.waypointPath!.addWall(wall)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
