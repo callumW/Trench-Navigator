@@ -10,11 +10,118 @@ import Foundation
 import UIKit
 import SpriteKit
 
+class Maze {
+    var walls: [Wall] = [Wall]()
+    var boolMap: [Bool]
+    var mazeWidth: Int
+    var mazeHeight: Int
+    
+    let scene: GameScene!
+    
+    init(scene: GameScene) {
+        self.scene = scene
+        let sceneSize = scene.size
+        mazeWidth = Int(sceneSize.width) / Wall.WALL_SIDE_LENGTH
+        mazeHeight = Int(sceneSize.height) / Wall.WALL_SIDE_LENGTH
+        
+        // walls.reserveCapacity(mazeWidth * mazeHeight)
+        boolMap = Array(repeating: true, count: mazeWidth * mazeHeight)
+        
+        generateMapPrim()
+        
+        realiseMap()
+    }
+    
+    func dividesTwoPassages(_ point: CGPoint) -> Bool {
+        if Int(point.x) - 1 >= 0 {
+            if Int(point.x + 1) < mazeWidth {
+                if Int(point.y - 1) >= 0 {
+                    if Int(point.y + 1) < mazeHeight {
+                        // point is surrounded by other points
+                        let separatesOnXAxis = !boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] && !boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1]
+                        let separatesOnYAxis = !boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] && !boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)]
+                        return separatesOnXAxis || separatesOnYAxis
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
+    func generateMapPrim() {
+        let startX = 0
+        let startY = 0
+        
+        boolMap[startX * startY] = false
+        
+        var wallList = [CGPoint]()
+        
+        wallList.append(CGPoint(x: 1, y: 0))
+        wallList.append(CGPoint(x: 0, y: 1))
+        
+        while wallList.count > 0 {
+            let wallIndex = Int.random(in: 0..<wallList.count)
+            let point = wallList[wallIndex]
+            
+            if !dividesTwoPassages(point) {
+                boolMap[Int(point.y) * mazeWidth + Int(point.x)] = false
+                
+                // Add neighbouring walls
+                if Int(point.x - 1) >= 0 {
+                    if boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] {
+                        wallList.append(CGPoint(x: point.x - 1, y: point.y))
+                    }
+                }
+                if Int(point.x + 1) < mazeWidth {
+                    if boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1] {
+                        wallList.append(CGPoint(x: point.x + 1, y: point.y))
+                    }
+                }
+                if Int(point.y - 1) >= 0 {
+                    if boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] {
+                        wallList.append(CGPoint(x: point.x, y: point.y - 1))
+                    }
+                }
+                if Int(point.y + 1) < mazeHeight {
+                    if boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)] {
+                        wallList.append(CGPoint(x: point.x, y: point.y + 1))
+                    }
+                }
+            }
+            wallList.remove(at: wallIndex)
+        }
+    }
+    
+    func realiseMap() {
+        var wallCount = 0
+        for x in 0..<mazeWidth {
+            for y in 0..<mazeHeight {
+                if boolMap[y * mazeWidth + x] {
+                    wallCount += 1
+                    walls.append(Wall(scene: scene, position: CGPoint(x: (x * Wall.WALL_SIDE_LENGTH) + Wall.WALL_SIDE_LENGTH / 2, y: (y * Wall.WALL_SIDE_LENGTH) + Wall.WALL_SIDE_LENGTH / 2)))
+                }
+            }
+        }
+        print("Wall count: " + String(wallCount))
+    }
+    
+    func willCollide(waypoint: Waypoint) -> Bool {
+        for wall in walls {
+            if wall.willCollide(waypoint: waypoint) {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 class Wall {
     var sprite: SKShapeNode! = nil
     var scene: GameScene! = nil
     let collisionRect: CGRect
     var colSprite: SKShapeNode! = nil
+    
+    static let WALL_SIDE_LENGTH: Int = 40
     
     init(scene: GameScene, position: CGPoint, size: CGSize) {
         self.scene = scene
@@ -32,7 +139,7 @@ class Wall {
     }
     
     convenience init(scene: GameScene, position: CGPoint) {
-        self.init(scene: scene, position: position, size: CGSize(width: 40, height: 40))
+        self.init(scene: scene, position: position, size: CGSize(width: Wall.WALL_SIDE_LENGTH, height: Wall.WALL_SIDE_LENGTH))
     }
     
     deinit {

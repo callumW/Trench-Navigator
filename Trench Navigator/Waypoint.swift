@@ -108,30 +108,23 @@ class WaypointPath {
     var scene: GameScene!
     var waypoints: WaypointNode! = nil
     var player: SKSpriteNode!
-    var wall: Wall! = nil
+    var maze: Maze! = nil
     
-    init(_ scene: GameScene, player: SKSpriteNode) {
+    init(_ scene: GameScene, player: SKSpriteNode, maze: Maze) {
         self.scene = scene
         self.player = player
-    }
-    
-    func addWall(_ wall: Wall) {
-        self.wall = wall
+        self.maze = maze
     }
     
     func addWaypoint(point: CGPoint) {
-        
-        
-
-
         if waypoints != nil {
             var tmp = waypoints
             while (tmp!.next != nil) {
                 tmp = tmp!.next
             }
             let waypoint = Waypoint(endPoint: point, startPoint: tmp!.waypoint.endCircle.position, scene: self.scene)
-            if self.wall != nil {
-                if self.wall.willCollide(waypoint: waypoint) {
+            if self.maze != nil {
+                if self.maze!.willCollide(waypoint: waypoint) {
                     print("Not placing waypoint because it would collide with wall!")
                     return
                 }
@@ -140,8 +133,8 @@ class WaypointPath {
         }
         else {
             let waypoint = Waypoint(endPoint: point, startPoint: player.position, scene: self.scene)
-            if self.wall != nil {
-                if self.wall.willCollide(waypoint: waypoint) {
+            if self.maze != nil {
+                if self.maze!.willCollide(waypoint: waypoint) {
                     print("Not placing waypoint because it would collide with wall!")
                     return
                 }
