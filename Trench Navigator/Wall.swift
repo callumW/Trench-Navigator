@@ -14,15 +14,21 @@ class Wall {
     var sprite: SKShapeNode! = nil
     var scene: GameScene! = nil
     let collisionRect: CGRect
+    var colSprite: SKShapeNode! = nil
     
     init(scene: GameScene, position: CGPoint, size: CGSize) {
         self.scene = scene
-        collisionRect = CGRect(origin: position, size: size)
+        collisionRect = CGRect(x: position.x - size.width / 2, y: position.y - size.height / 2, width: size.width, height: size.height)
         sprite = SKShapeNode(rectOf: size)
         sprite.strokeColor = SKColor.green
         sprite.fillColor = SKColor.green
         sprite.position = position
         self.scene.addChild(sprite)
+        
+        colSprite = SKShapeNode(rect: collisionRect)
+        colSprite.strokeColor = SKColor.red
+        self.scene.addChild(colSprite)
+        
     }
     
     convenience init(scene: GameScene, position: CGPoint) {
@@ -33,10 +39,12 @@ class Wall {
         if sprite.parent != nil {
             sprite.removeFromParent()
         }
+        if colSprite.parent != nil {
+            colSprite.removeFromParent()
+        }
     }
     
     func willCollide(waypoint: Waypoint) -> Bool {
-        
         let line = waypoint.toLine()
         return line.doesIntersect(rect: self.collisionRect)
     }

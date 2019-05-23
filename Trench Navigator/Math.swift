@@ -56,9 +56,13 @@ class Line {
         switch self.type {
         case .GRADIENT:
             let left = CGPoint(x: Double(rect.minX), y: y(Double(rect.minX)))
-            let right = CGPoint(x: Double(rect.maxX), y: y(Double(rect.maxX)))
+            let right = CGPoint(x: Double(rect.maxX) - 1, y: y(Double(rect.maxX)))  // CGRect::contains does not consider right line to be in the rect
             let bottom = CGPoint(x: x(Double(rect.minY)), y: Double(rect.minY))
-            let top = CGPoint(x: x(Double(rect.maxY)), y: Double(rect.maxY))
+            let top = CGPoint(x: x(Double(rect.maxY)), y: Double(rect.maxY) - 1)    // CGRect::contains does not consider top line to be in the rect
+            
+            // print("top: " + NSCoder.string(for: top) + " | bottom: " + NSCoder.string(for: bottom) + " | left: " + NSCoder.string(for: left) + " | right: " + NSCoder.string(for: right))
+            
+            // print("Collision Rect: " + NSCoder.string(for: rect))
             
             return rect.contains(left) || rect.contains(right) || rect.contains(bottom) || rect.contains(top)
         case .HORIZONTAL:
