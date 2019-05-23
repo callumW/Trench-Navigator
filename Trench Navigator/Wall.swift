@@ -13,9 +13,11 @@ import SpriteKit
 class Wall {
     var sprite: SKShapeNode! = nil
     var scene: GameScene! = nil
+    let collisionRect: CGRect
     
     init(scene: GameScene, position: CGPoint, size: CGSize) {
         self.scene = scene
+        collisionRect = CGRect(origin: position, size: size)
         sprite = SKShapeNode(rectOf: size)
         sprite.strokeColor = SKColor.green
         sprite.fillColor = SKColor.green
@@ -34,7 +36,9 @@ class Wall {
     }
     
     func willCollide(waypoint: Waypoint) -> Bool {
-        return false
+        
+        let line = waypoint.toLine()
+        return line.doesIntersect(rect: self.collisionRect)
     }
     
 }

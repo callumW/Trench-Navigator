@@ -53,16 +53,26 @@ class Line {
     func doesIntersect(rect: CGRect) -> Bool {
         
         // lets first get lines to define our faces
-        let topLeft = CGPoint(x: rect.minX, y: rect.maxY)
-        let topRight = CGPoint(x: rect.maxX, y: rect.maxY)
-        let bottomLeft = CGPoint(x: rect.minX, y: rect.minY)
-        let bottomRight = CGPoint(x: rect.maxX, y: rect.minY)
-
-        let topLine = Line(a: topLeft, b: topRight)
-        let leftLine = Line(a: topLeft, b: bottomLeft)
-        let bottomLine = Line(a: bottomLeft, b: bottomRight)
-        let rightLine = Line(a: topRight, b: bottomRight)
-
-        return doesIntersect(line: topLine) || doesIntersect(line: leftLine) || doesIntersect(line: bottomLine) || doesIntersect(line: rightLine)
+        switch self.type {
+        case .GRADIENT:
+            let left = CGPoint(x: Double(rect.minX), y: y(Double(rect.minX)))
+            let right = CGPoint(x: Double(rect.maxX), y: y(Double(rect.maxX)))
+            let bottom = CGPoint(x: x(Double(rect.minY)), y: Double(rect.minY))
+            let top = CGPoint(x: x(Double(rect.maxY)), y: Double(rect.maxY))
+            
+            return rect.contains(left) || rect.contains(right) || rect.contains(bottom) || rect.contains(top)
+        case .HORIZONTAL:
+            return self.d <= Double(rect.maxX) && self.d >= Double(rect.minX)
+        case .VERTICAL:
+            return self.c <= Double(rect.maxY) && self.c >= Double(rect.minY)
+        }
+    }
+    
+    private func y(_ x: Double) -> Double {
+        return m * x + c
+    }
+    
+    private func x(_ y: Double) -> Double {
+        return (y - c) / m
     }
 }
