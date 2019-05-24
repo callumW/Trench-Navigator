@@ -32,38 +32,40 @@ class Maze {
         realiseMap()
     }
     
-    func dividesTwoPassages(_ point: CGPoint) -> Bool {
+    func shouldAdd(_ point: CGPoint) -> Bool {
+        var separatesOnXAxis: Bool = false
+        var separatesOnYAxis: Bool = false
         if Int(point.x) - 1 >= 0 {
             if Int(point.x + 1) < mazeWidth {
-                if Int(point.y - 1) >= 0 {
-                    if Int(point.y + 1) < mazeHeight {
-                        // point is surrounded by other points
-                        let separatesOnXAxis = !boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] && !boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1]
-                        let separatesOnYAxis = !boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] && !boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)]
-                        return separatesOnXAxis || separatesOnYAxis
-                    }
-                }
+                separatesOnXAxis = !boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] && !boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1]
             }
         }
-        return false
+        if Int(point.y - 1) >= 0 {
+            if Int(point.y + 1) < mazeHeight {
+                separatesOnYAxis = !boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] && !boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)]
+            }
+        }
+        return !separatesOnXAxis && !separatesOnYAxis
     }
     
     func generateMapPrim() {
-        let startX = 0
-        let startY = 0
+        let startX = 1
+        let startY = 1
         
         boolMap[startX * startY] = false
         
         var wallList = [CGPoint]()
         
-        wallList.append(CGPoint(x: 1, y: 0))
         wallList.append(CGPoint(x: 0, y: 1))
+        wallList.append(CGPoint(x: 1, y: 0))
+        wallList.append(CGPoint(x: 2, y: 1))
+        wallList.append(CGPoint(x: 1, y: 2))
         
         while wallList.count > 0 {
             let wallIndex = Int.random(in: 0..<wallList.count)
             let point = wallList[wallIndex]
             
-            if !dividesTwoPassages(point) {
+            if shouldAdd(point) {
                 boolMap[Int(point.y) * mazeWidth + Int(point.x)] = false
                 
                 // Add neighbouring walls
@@ -121,7 +123,7 @@ class Wall {
     let collisionRect: CGRect
     var colSprite: SKShapeNode! = nil
     
-    static let WALL_SIDE_LENGTH: Int = 40
+    static let WALL_SIDE_LENGTH: Int = 20
     
     init(scene: GameScene, position: CGPoint, size: CGSize) {
         self.scene = scene
