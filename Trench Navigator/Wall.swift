@@ -126,6 +126,7 @@ class Wall {
     init(scene: GameScene, position: CGPoint, size: CGSize) {
         self.scene = scene
         collisionRect = CGRect(x: position.x - size.width / 2, y: position.y - size.height / 2, width: size.width, height: size.height)
+        // collisionRect = CGRect(origin: position, size: size)
         sprite = SKShapeNode(rectOf: size)
         sprite.strokeColor = SKColor.green
         sprite.fillColor = SKColor.green

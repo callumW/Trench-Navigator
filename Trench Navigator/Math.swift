@@ -23,6 +23,10 @@ class Line {
     let c: Double   // y - axis intercept
     let d: Double   // x - axis intercept
     let type: LineType
+    let minX: Double
+    let maxX: Double
+    let minY: Double
+    let maxY: Double
     
     init(a: CGPoint, b: CGPoint) {
         // TODO how to meaningfuly check whether line is horizontal / vertical
@@ -44,6 +48,24 @@ class Line {
             c = Double(a.y) - m * Double(a.x)
             d = (0.0 - c) / m
         }
+        
+        if a.x < b.x {
+            minX = Double(a.x)
+            maxX = Double(b.x)
+        }
+        else {
+            minX = Double(b.x)
+            maxX = Double(a.x)
+        }
+        
+        if a.y < b.y {
+            minY = Double(a.y)
+            maxY = Double(b.y)
+        }
+        else {
+            minY = Double(b.y)
+            maxY = Double(a.y)
+        }
     }
     
     func doesIntersect(line: Line) -> Bool {
@@ -64,12 +86,36 @@ class Line {
             
             // print("Collision Rect: " + NSCoder.string(for: rect))
             
-            return rect.contains(left) || rect.contains(right) || rect.contains(bottom) || rect.contains(top)
+            var willCollide: Bool = false
+            
+            if (inDomain(left)) {
+                willCollide = willCollide || rect.contains(left)
+            }
+            
+            if (inDomain(right)) {
+                willCollide = willCollide || rect.contains(right)
+            }
+            
+            if (inDomain(top)) {
+                willCollide = willCollide || rect.contains(top)
+            }
+            
+            if (inDomain(bottom)) {
+                willCollide = willCollide || rect.contains(bottom)
+            }
+            
+            return willCollide
         case .HORIZONTAL:
             return self.d <= Double(rect.maxX) && self.d >= Double(rect.minX)
         case .VERTICAL:
             return self.c <= Double(rect.maxY) && self.c >= Double(rect.minY)
         }
+    }
+    
+    private func inDomain(_ point: CGPoint) -> Bool {
+        let isInX: Bool = minX <= Double(point.x) && maxX >= Double(point.x)
+        let isInY: Bool = minY <= Double(point.y) && maxY >= Double(point.y)
+        return isInY && isInX
     }
     
     private func y(_ x: Double) -> Double {
