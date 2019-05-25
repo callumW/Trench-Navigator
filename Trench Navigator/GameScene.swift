@@ -13,6 +13,8 @@ class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
     var waypointPath: WaypointPath!
     var wall: Wall! = nil
+    var topWall: TrenchWall! = nil
+    var bottomWall: TrenchWall! = nil
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.black
@@ -23,8 +25,11 @@ class GameScene: SKScene {
         addChild(player)
         
         self.waypointPath = WaypointPath(self, player: player)
-        wall = Wall(scene: self, position: CGPoint(x: size.width / 2, y: size.height / 2))
-        self.waypointPath!.addWall(wall)
+        // wall = Wall(scene: self, position: CGPoint(x: size.width / 2, y: size.height / 2))
+        // self.waypointPath!.addWall(wall)
+        
+        self.topWall = TrenchWall(scene: self, side: Side.TOP)
+        self.bottomWall = TrenchWall(scene: self, side: Side.BOTTOM)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
