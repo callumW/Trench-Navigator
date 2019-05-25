@@ -19,22 +19,22 @@ class TrenchWall {
     static let WALL_HEIGHT_RANGE: Double = 30
     static let MAX_WALL_SECTION_LENGTH: Double = 15
     static let MIN_WALL_SECTION_LENGTH: Double = 10
+
     let side: Side
-    var points: [CGPoint]
-    var numPoints: Int = 0
     let yOffset: Double
     let scene: GameScene
     let sprite: SKShapeNode
     
+    var points: [CGPoint]
+    var numPoints: Int = 0
+    
     init(scene: GameScene, side: Side) {
         self.scene = scene
         self.side = side
-        var wallMidLine: Double = 0.0
         
         switch side {
         case .TOP:
             yOffset = Double(scene.size.height) - TrenchWall.WALL_HEIGHT_RANGE * 0.5
-            wallMidLine = Double(scene.size.height) - TrenchWall.WALL_HEIGHT_RANGE / 2.0
             points = [
                 CGPoint(x: 0.0, y: Double(scene.size.height)),
                 CGPoint(x: Double(scene.size.width), y: Double(scene.size.height))
@@ -42,7 +42,6 @@ class TrenchWall {
             break
         case .BOTTOM:
             yOffset = TrenchWall.WALL_HEIGHT_RANGE * 1.5
-            wallMidLine = TrenchWall.WALL_HEIGHT_RANGE / 2.0
             points = [
                 CGPoint(x: 0.0, y: 0.0),
                 CGPoint(x: Double(scene.size.width), y: 0.0)
