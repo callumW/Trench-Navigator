@@ -17,7 +17,8 @@ enum Side {
 
 class TrenchWall {
     static let WALL_HEIGHT_RANGE: Double = 30
-    static let WALL_SECTION_LENGTH_RANGE: Double = 10
+    static let MAX_WALL_SECTION_LENGTH: Double = 15
+    static let MIN_WALL_SECTION_LENGTH: Double = 10
     let side: Side
     var points: [CGPoint]
     var numPoints: Int = 0
@@ -54,7 +55,7 @@ class TrenchWall {
             let nextPoint = CGPoint(x: startX, y: yOffset - Double.random(in: 0.0...TrenchWall.WALL_HEIGHT_RANGE))
             points.append(nextPoint)
             numPoints += 1
-            startX -= Double.random(in: 5.0...TrenchWall.WALL_SECTION_LENGTH_RANGE)
+            startX -= Double.random(in: TrenchWall.MAX_WALL_SECTION_LENGTH...TrenchWall.MAX_WALL_SECTION_LENGTH)
         }
         
         points.append(CGPoint(x: 0.0, y: yOffset - Double.random(in: 0.0...TrenchWall.WALL_HEIGHT_RANGE)))
