@@ -18,27 +18,36 @@ enum MazeElementState {
 
 class Maze {
     var walls: [Wall] = [Wall]()
-    var boolMap: [Bool]
+    var boolMap: [MazeElementState]
     var mazeWidth: Int
     var mazeHeight: Int
     var border: SKShapeNode
+    var borderRect: CGRect
     
     let scene: GameScene!
     
     init(scene: GameScene) {
         self.scene = scene
         let sceneSize = scene.size
-        mazeWidth = Int(sceneSize.width) / Wall.WALL_SIDE_LENGTH
-        mazeHeight = Int(sceneSize.height) / Wall.WALL_SIDE_LENGTH
         
-        let borderRect = CGRect(origin: CGPoint.zero, size: CGSize(width: mazeWidth * Wall.WALL_SIDE_LENGTH, height: mazeHeight * Wall.WALL_SIDE_LENGTH))
+        let mazeArea = CGRect(x: 0.15 * sceneSize.width, y: 0, width: 0.7 * sceneSize.width, height: sceneSize.height)
+        mazeWidth = Int(mazeArea.width) / Wall.WALL_SIDE_LENGTH
+        mazeHeight = Int(mazeArea.height) / Wall.WALL_SIDE_LENGTH
         
+        let width = Double(mazeWidth * Wall.WALL_SIDE_LENGTH)
+        let height = Double(mazeHeight * Wall.WALL_SIDE_LENGTH)
+        let xOffset = (Double(scene.size.width) - width) / 2.0
+        let yOffset = (Double(scene.size.height) - height) / 2.0
+        
+        borderRect = CGRect(origin: CGPoint(x: xOffset, y: yOffset), size: CGSize(width: width, height: height))
+        
+
         border = SKShapeNode(rect: borderRect)
         border.strokeColor = SKColor.blue
         scene.addChild(border)
         
         // walls.reserveCapacity(mazeWidth * mazeHeight)
-        boolMap = Array(repeating: true, count: mazeWidth * mazeHeight)
+        boolMap = Array(repeating: MazeElementState.UNVISITED, count: mazeWidth * mazeHeight)
         
         generateMapPrim()
         
@@ -51,28 +60,32 @@ class Maze {
         }
     }
     
+    func getStartPoint() -> CGPoint {
+        return CGPoint(x: borderRect.minX, y: borderRect.minY)
+    }
+    
     // TODO remove casts
     func shouldAdd(_ point: CGPoint) -> Bool {
         var numNeighbours: Int = 0
         if Int(point.x) - 1 >= 0 {
-            if !boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] {
+            if boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] != MazeElementState.UNVISITED {
                 print("neighbour to left")
                 numNeighbours += 1
             }
         }
         if Int(point.x + 1) < mazeWidth {
-            if !boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1] {
+            if boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1] != MazeElementState.UNVISITED {
                 print("neighbour to right")
                 numNeighbours += 1
             }
         }
         if Int(point.y - 1) >= 0 {
-            if !boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] {
+            if boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] != MazeElementState.UNVISITED {
                 print("neighbour below")
                 numNeighbours += 1
             }
             if Int(point.y + 1) < mazeHeight {
-                if !boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)] {
+                if boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)] != MazeElementState.UNVISITED {
                     print("neightbour above")
                     numNeighbours += 1
                 }
@@ -82,17 +95,17 @@ class Maze {
     }
     
     func generateMapPrim() {
-        let startX = 1
-        let startY = 1
+        let startX = 0
+        let startY = 0
         
-        boolMap[startY * mazeWidth + startX] = false
+        boolMap[startY * mazeWidth + startX] = MazeElementState.PASSAGE
         
         var wallList = [CGPoint]()
         
         wallList.append(CGPoint(x: 0, y: 1))
         wallList.append(CGPoint(x: 1, y: 0))
-        wallList.append(CGPoint(x: 2, y: 1))
-        wallList.append(CGPoint(x: 1, y: 2))
+//        wallList.append(CGPoint(x: 2, y: 1))
+//        wallList.append(CGPoint(x: 1, y: 2))
         
         while wallList.count > 0 {
             let wallIndex = Int.random(in: 0..<wallList.count)
@@ -101,26 +114,26 @@ class Maze {
             
             
             if shouldAdd(point) {
-                boolMap[Int(point.y) * mazeWidth + Int(point.x)] = false
+                boolMap[Int(point.y) * mazeWidth + Int(point.x)] = MazeElementState.PASSAGE
                 
                 // Add neighbouring walls
                 if Int(point.x - 1) >= 0 {
-                    if boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] {
+                    if boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] != MazeElementState.PASSAGE {
                         wallList.append(CGPoint(x: point.x - 1, y: point.y))
                     }
                 }
                 if Int(point.x + 1) < mazeWidth {
-                    if boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1] {
+                    if boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1] != MazeElementState.PASSAGE {
                         wallList.append(CGPoint(x: point.x + 1, y: point.y))
                     }
                 }
                 if Int(point.y - 1) >= 0 {
-                    if boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] {
+                    if boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] != MazeElementState.PASSAGE {
                         wallList.append(CGPoint(x: point.x, y: point.y - 1))
                     }
                 }
                 if Int(point.y + 1) < mazeHeight {
-                    if boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)] {
+                    if boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)] != MazeElementState.PASSAGE {
                         wallList.append(CGPoint(x: point.x, y: point.y + 1))
                     }
                 }
@@ -133,9 +146,9 @@ class Maze {
         var wallCount = 0
         for x in 0..<mazeWidth {
             for y in 0..<mazeHeight {
-                if boolMap[y * mazeWidth + x] {
+                if boolMap[y * mazeWidth + x] != MazeElementState.PASSAGE {
                     wallCount += 1
-                    walls.append(Wall(scene: scene, position: CGPoint(x: (x * Wall.WALL_SIDE_LENGTH) + Wall.WALL_SIDE_LENGTH / 2, y: (y * Wall.WALL_SIDE_LENGTH) + Wall.WALL_SIDE_LENGTH / 2)))
+                    walls.append(Wall(scene: scene, position: CGPoint(x: CGFloat((x * Wall.WALL_SIDE_LENGTH) + Wall.WALL_SIDE_LENGTH / 2) + borderRect.minX, y: CGFloat((y * Wall.WALL_SIDE_LENGTH) + Wall.WALL_SIDE_LENGTH / 2) + borderRect.minY)))
                 }
             }
         }
@@ -158,7 +171,7 @@ class Wall {
     let collisionRect: CGRect
     var colSprite: SKShapeNode! = nil
     
-    static let WALL_SIDE_LENGTH: Int = 20
+    static let WALL_SIDE_LENGTH: Int = 25
     
     init(scene: GameScene, position: CGPoint, size: CGSize) {
         self.scene = scene

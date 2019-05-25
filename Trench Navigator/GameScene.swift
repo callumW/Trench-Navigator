@@ -21,7 +21,10 @@ class GameScene: SKScene {
         view.showsFPS = true
         view.showsNodeCount = true
         
-        player.position = CGPoint(x: player.size.height / 2, y: player.size.width / 2)
+        self.maze = Maze(scene: self)
+        let mazeOrigin = self.maze.getStartPoint()
+        
+        player.position = CGPoint(x: CGFloat(player.size.height / 2) + mazeOrigin.x, y: CGFloat(player.size.width / 2) + mazeOrigin.y)
         
         // player.position = CGPoint(x: 0, y: 0)
         
@@ -29,7 +32,6 @@ class GameScene: SKScene {
         
         addChild(player)
         
-        self.maze = Maze(scene: self)
         self.waypointPath = WaypointPath(self, player: player, maze: self.maze)
         
         // self.wall = Wall(scene: self, position: CGPoint(x: 0 + Wall.WALL_SIDE_LENGTH, y: 0 + Wall.WALL_SIDE_LENGTH ))
