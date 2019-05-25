@@ -21,9 +21,9 @@ class GameScene: SKScene {
         view.showsFPS = true
         view.showsNodeCount = true
         
-        // player.position = CGPoint(x: player.size.height / 2, y: size.height * 0.5)
+        player.position = CGPoint(x: player.size.height / 2, y: player.size.width / 2)
         
-        player.position = CGPoint(x: 0, y: 0)
+        // player.position = CGPoint(x: 0, y: 0)
         
         player.zRotation = CGFloat.pi * 1.5;
         

@@ -10,11 +10,18 @@ import Foundation
 import UIKit
 import SpriteKit
 
+enum MazeElementState {
+    case WALL
+    case UNVISITED
+    case PASSAGE
+}
+
 class Maze {
     var walls: [Wall] = [Wall]()
     var boolMap: [Bool]
     var mazeWidth: Int
     var mazeHeight: Int
+    var border: SKShapeNode
     
     let scene: GameScene!
     
@@ -24,6 +31,12 @@ class Maze {
         mazeWidth = Int(sceneSize.width) / Wall.WALL_SIDE_LENGTH
         mazeHeight = Int(sceneSize.height) / Wall.WALL_SIDE_LENGTH
         
+        let borderRect = CGRect(origin: CGPoint.zero, size: CGSize(width: mazeWidth * Wall.WALL_SIDE_LENGTH, height: mazeHeight * Wall.WALL_SIDE_LENGTH))
+        
+        border = SKShapeNode(rect: borderRect)
+        border.strokeColor = SKColor.blue
+        scene.addChild(border)
+        
         // walls.reserveCapacity(mazeWidth * mazeHeight)
         boolMap = Array(repeating: true, count: mazeWidth * mazeHeight)
         
@@ -32,27 +45,47 @@ class Maze {
         realiseMap()
     }
     
+    deinit {
+        if border.parent != nil {
+            border.removeFromParent()
+        }
+    }
+    
+    // TODO remove casts
     func shouldAdd(_ point: CGPoint) -> Bool {
-        var separatesOnXAxis: Bool = false
-        var separatesOnYAxis: Bool = false
+        var numNeighbours: Int = 0
         if Int(point.x) - 1 >= 0 {
-            if Int(point.x + 1) < mazeWidth {
-                separatesOnXAxis = !boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] && !boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1]
+            if !boolMap[Int(point.y) * mazeWidth + Int(point.x) - 1] {
+                print("neighbour to left")
+                numNeighbours += 1
+            }
+        }
+        if Int(point.x + 1) < mazeWidth {
+            if !boolMap[Int(point.y) * mazeWidth + Int(point.x) + 1] {
+                print("neighbour to right")
+                numNeighbours += 1
             }
         }
         if Int(point.y - 1) >= 0 {
+            if !boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] {
+                print("neighbour below")
+                numNeighbours += 1
+            }
             if Int(point.y + 1) < mazeHeight {
-                separatesOnYAxis = !boolMap[Int(point.y - 1) * mazeWidth + Int(point.x)] && !boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)]
+                if !boolMap[Int(point.y + 1) * mazeWidth + Int(point.x)] {
+                    print("neightbour above")
+                    numNeighbours += 1
+                }
             }
         }
-        return !separatesOnXAxis && !separatesOnYAxis
+        return numNeighbours == 1
     }
     
     func generateMapPrim() {
         let startX = 1
         let startY = 1
         
-        boolMap[startX * startY] = false
+        boolMap[startY * mazeWidth + startX] = false
         
         var wallList = [CGPoint]()
         
@@ -64,6 +97,8 @@ class Maze {
         while wallList.count > 0 {
             let wallIndex = Int.random(in: 0..<wallList.count)
             let point = wallList[wallIndex]
+            print("evaluating wall at: \(wallIndex): " + NSCoder.string(for: point))
+            
             
             if shouldAdd(point) {
                 boolMap[Int(point.y) * mazeWidth + Int(point.x)] = false
