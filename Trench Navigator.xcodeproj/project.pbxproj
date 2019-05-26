@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B32E46A2290148E00C02419 /* Waypoint.swift */; };
 		1B8A2CBC2299B4280044A289 /* TrenchWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A2CBB2299B4280044A289 /* TrenchWall.swift */; };
+		1B9126C3229A9ED20044E5BB /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126C2229A9ED20044E5BB /* CollisionManager.swift */; };
+		1B9126C5229AA0960044E5BB /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126C4229AA0960044E5BB /* Queue.swift */; };
 		1BB907E02294652000CF2239 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907DF2294652000CF2239 /* Wall.swift */; };
 		1BB907E222947DDB00CF2239 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907E122947DDB00CF2239 /* Math.swift */; };
 		1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D792228DE548007D26F5 /* AppDelegate.swift */; };
@@ -23,6 +25,8 @@
 		1B0422F1228F36D5005C01C5 /* Submarine.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Submarine.xcf; sourceTree = "<group>"; };
 		1B32E46A2290148E00C02419 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		1B8A2CBB2299B4280044A289 /* TrenchWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrenchWall.swift; sourceTree = "<group>"; };
+		1B9126C2229A9ED20044E5BB /* CollisionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
+		1B9126C4229AA0960044E5BB /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		1BB907DF2294652000CF2239 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		1BB907E122947DDB00CF2239 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		1BF4D78F228DE548007D26F5 /* Trench Navigator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trench Navigator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +89,8 @@
 				1BB907DF2294652000CF2239 /* Wall.swift */,
 				1BB907E122947DDB00CF2239 /* Math.swift */,
 				1B8A2CBB2299B4280044A289 /* TrenchWall.swift */,
+				1B9126C2229A9ED20044E5BB /* CollisionManager.swift */,
+				1B9126C4229AA0960044E5BB /* Queue.swift */,
 			);
 			path = "Trench Navigator";
 			sourceTree = "<group>";
@@ -160,12 +166,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B9126C3229A9ED20044E5BB /* CollisionManager.swift in Sources */,
 				1B8A2CBC2299B4280044A289 /* TrenchWall.swift in Sources */,
 				1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */,
 				1BF4D799228DE548007D26F5 /* GameScene.swift in Sources */,
 				1BB907E02294652000CF2239 /* Wall.swift in Sources */,
 				1BF4D79B228DE548007D26F5 /* GameViewController.swift in Sources */,
 				1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */,
+				1B9126C5229AA0960044E5BB /* Queue.swift in Sources */,
 				1BB907E222947DDB00CF2239 /* Math.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

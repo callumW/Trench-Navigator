@@ -15,7 +15,7 @@ enum Side {
     case BOTTOM
 }
 
-class TrenchWall {
+class TrenchWall: Hittable {
     static let WALL_HEIGHT_RANGE: Double = 30
     static let MAX_WALL_SECTION_LENGTH: Double = 15
     static let MIN_WALL_SECTION_LENGTH: Double = 10
@@ -87,11 +87,25 @@ class TrenchWall {
         }
     }
     
-    func doesCollide(waypoint: Waypoint) {
+    func doesCollide(waypoint: Waypoint) -> Bool {
         let line = waypoint.toLine()
-//        switch self.side {
-//        case .TOP:
-//            if line.
-//        }
+
+        /*
+            Check if line is anywhere close to TrenchWall
+        */
+        switch self.side {
+        case .TOP:
+            if line.maxY < self.yOffset - maxWallHeight {
+                return false
+            }
+            break;
+        case .BOTTOM:
+            if line.minY > self.yOffset - maxWallHeight {
+                return false
+            }
+            break;
+        }
+        
+        return true
     }
 }

@@ -15,6 +15,7 @@ class GameScene: SKScene {
     var wall: Wall! = nil
     var topWall: TrenchWall! = nil
     var bottomWall: TrenchWall! = nil
+    var collisionManager: CollisionManager! = nil
     
     override func didMove(to view: SKView) {
         backgroundColor = SKColor.black
@@ -24,12 +25,15 @@ class GameScene: SKScene {
         
         addChild(player)
         
-        self.waypointPath = WaypointPath(self, player: player)
-        // wall = Wall(scene: self, position: CGPoint(x: size.width / 2, y: size.height / 2))
-        // self.waypointPath!.addWall(wall)
+        self.collisionManager = CollisionManager(scene: self)
+        
+        self.waypointPath = WaypointPath(self, player: player, collisionManager: self.collisionManager)
         
         self.topWall = TrenchWall(scene: self, side: Side.TOP)
         self.bottomWall = TrenchWall(scene: self, side: Side.BOTTOM)
+        
+        self.collisionManager.addObject(obj: self.topWall)
+        self.collisionManager.addObject(obj: self.bottomWall)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
