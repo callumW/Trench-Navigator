@@ -13,8 +13,8 @@ class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
     var waypointPath: WaypointPath!
     var wall: Wall! = nil
-    var topWall: TrenchWall! = nil
-    var bottomWall: TrenchWall! = nil
+    var topWall: PolygonSprite! = nil
+    var bottomWall: PolygonSprite! = nil
     var collisionManager: CollisionManager! = nil
     
     override func didMove(to view: SKView) {
@@ -29,8 +29,8 @@ class GameScene: SKScene {
         
         self.waypointPath = WaypointPath(self, player: player, collisionManager: self.collisionManager)
         
-        self.topWall = TrenchWall(scene: self, side: Side.TOP)
-        self.bottomWall = TrenchWall(scene: self, side: Side.BOTTOM)
+        self.topWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.TOP))
+        self.bottomWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.BOTTOM))
         
         self.collisionManager.addObject(obj: self.topWall)
         self.collisionManager.addObject(obj: self.bottomWall)
