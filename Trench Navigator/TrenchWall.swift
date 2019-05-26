@@ -25,8 +25,8 @@ class TrenchWall {
     let scene: GameScene
     let sprite: SKShapeNode
     
+    var maxWallHeight = 0.0
     var points: [CGPoint]
-    var numPoints: Int = 0
     
     init(scene: GameScene, side: Side) {
         self.scene = scene
@@ -50,14 +50,29 @@ class TrenchWall {
         }
 
         var startX = Double(scene.size.width)
-        while startX >= 0 {
-            let nextPoint = CGPoint(x: startX, y: yOffset - Double.random(in: 0.0...TrenchWall.WALL_HEIGHT_RANGE))
-            points.append(nextPoint)
-            numPoints += 1
+        while startX > 0.0 {
             startX -= Double.random(in: TrenchWall.MAX_WALL_SECTION_LENGTH...TrenchWall.MAX_WALL_SECTION_LENGTH)
+            
+            if startX <= 0.0 {
+                startX = 0.0
+            }
+            
+            let wallHeight = Double.random(in: 0.0...TrenchWall.WALL_HEIGHT_RANGE)
+            let nextPoint = CGPoint(x: startX, y: yOffset - wallHeight)
+            
+            if side == .TOP {
+                if maxWallHeight < wallHeight {
+                    maxWallHeight = wallHeight
+                }
+            }
+            else {
+                if maxWallHeight > wallHeight {
+                    maxWallHeight = wallHeight
+                }
+            }
+            points.append(nextPoint)
         }
         
-        points.append(CGPoint(x: 0.0, y: yOffset - Double.random(in: 0.0...TrenchWall.WALL_HEIGHT_RANGE)))
         points.append(points[0])
         
         sprite = SKShapeNode(points: &points, count: points.count)
@@ -70,5 +85,13 @@ class TrenchWall {
         if sprite.parent != nil {
             sprite.removeFromParent()
         }
+    }
+    
+    func doesCollide(waypoint: Waypoint) {
+        let line = waypoint.toLine()
+//        switch self.side {
+//        case .TOP:
+//            if line.
+//        }
     }
 }
