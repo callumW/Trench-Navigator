@@ -30,17 +30,17 @@ class Line {
     
     init(a: CGPoint, b: CGPoint) {
         // TODO how to meaningfuly check whether line is horizontal / vertical
-        if a.x == b.x { // horizontal line
-            type = LineType.HORIZONTAL
-            c = Double(a.x)
-            m = 0.0
-            d = Double.infinity
-        }
-        else if a.y == b.y { // vertical line
+        if a.x == b.x { // vertical line
             type = LineType.VERTICAL
-            c = Double.infinity
+            d = Double(a.x)
             m = Double.infinity
-            d = Double(a.y)
+            c = Double.infinity
+        }
+        else if a.y == b.y { // horizontal line
+            type = LineType.HORIZONTAL
+            d = Double.infinity
+            m = 0.0
+            c = Double(a.y)
         }
         else {
             type = LineType.GRADIENT
@@ -69,7 +69,67 @@ class Line {
     }
     
     func doesIntersect(line: Line) -> Bool {
-        return false
+        // first check lines are in same domain
+       
+        var intersectX: Double = 0.0
+        var intersectY: Double = 0.0
+        if self.type == .GRADIENT && line.type == .GRADIENT {
+            intersectX = (self.c - line.c) / (line.m - self.m)
+            intersectY = y(intersectX)
+        }
+        else if self.type == .HORIZONTAL && line.type == .GRADIENT {
+            intersectY = self.c
+            intersectX = line.y(intersectX)
+        }
+        else if self.type == .VERTICAL && line.type == .GRADIENT {
+            intersectX = self.d
+            intersectY = line.y(intersectX)
+        }
+        else if self.type == .GRADIENT && line.type == .HORIZONTAL {
+            intersectY = line.c
+            intersectX = x(intersectY)
+        }
+        else if self.type == .HORIZONTAL && line.type == .HORIZONTAL {
+            if self.c == line.c {
+                if self.minX >= line.minX && self.minX <= line.maxX || self.maxX >= line.minX && self.maxX <= line.maxX {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            else {
+                return false
+            }
+        }
+        else if self.type == .VERTICAL && line.type == .HORIZONTAL {
+            intersectX = self.d
+            intersectY = line.c
+        }
+        else if self.type == .GRADIENT && line.type == .VERTICAL {
+            intersectX = line.d
+            intersectY = y(intersectX)
+        }
+        else if self.type == .HORIZONTAL && line.type == .VERTICAL {
+            intersectX = line.d
+            intersectY = self.c
+        }
+        else if self.type == .VERTICAL && line.type == .VERTICAL {
+            if self.d == line.d {
+                if self.minY >= line.minY && self.minY <= line.maxY || self.maxY >= line.minY && self.maxY <= line.maxY {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            else {
+                return false
+            }
+        }
+        
+        let intersectPoint = CGPoint(x: intersectX, y: intersectY)
+        return inDomain(intersectPoint) && line.inDomain(intersectPoint)
     }
     
     func doesIntersect(rect: CGRect) -> Bool {
@@ -124,5 +184,16 @@ class Line {
     
     private func x(_ y: Double) -> Double {
         return (y - c) / m
+    }
+    
+    func toString() -> String {
+        switch type {
+        case .GRADIENT:
+            return "y = \(m)x + \(c) for x in [\(minX),\(maxX)] && y in [\(minY), \(maxY)]"
+        case .HORIZONTAL:
+            return "y = \(c) for x in [\(minX),\(maxX)] && y in [\(minY), \(maxY)]"
+        case .VERTICAL:
+            return "x = \(d) for x in [\(minX),\(maxX)] && y in [\(minY), \(maxY)]"
+        }
     }
 }

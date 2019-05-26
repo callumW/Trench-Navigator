@@ -88,24 +88,35 @@ class TrenchWall: Hittable {
     }
     
     func doesCollide(waypoint: Waypoint) -> Bool {
-        let line = waypoint.toLine()
+        let waypointLine = waypoint.toLine()
 
         /*
             Check if line is anywhere close to TrenchWall
         */
         switch self.side {
         case .TOP:
-            if line.maxY < self.yOffset - maxWallHeight {
+            if waypointLine.maxY < self.yOffset - maxWallHeight {
                 return false
             }
             break;
         case .BOTTOM:
-            if line.minY > self.yOffset - maxWallHeight {
+            if waypointLine.minY > self.yOffset - maxWallHeight {
                 return false
             }
             break;
         }
         
-        return true
+        var lastPoint = self.points[0]
+        for i in 1..<self.points.count {
+            let point = self.points[i]
+            let line = Line(a: lastPoint, b: point)
+            
+            if waypointLine.doesIntersect(line: line) {
+                return true
+            }
+            lastPoint = point
+        }
+        
+        return false
     }
 }
