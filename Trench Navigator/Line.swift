@@ -1,5 +1,5 @@
 //
-//  Math.swift
+//  Line.swift
 //  Trench Navigator
 //
 //  Created by Callum Wilson on 21/05/2019.
