@@ -109,10 +109,12 @@ class WaypointPath {
     var waypoints: WaypointNode! = nil
     var player: SKSpriteNode!
     var wall: Wall! = nil
+    let collisionManager: CollisionManager
     
-    init(_ scene: GameScene, player: SKSpriteNode) {
+    init(_ scene: GameScene, player: SKSpriteNode, collisionManager: CollisionManager) {
         self.scene = scene
         self.player = player
+        self.collisionManager = collisionManager
     }
     
     func addWall(_ wall: Wall) {
@@ -120,31 +122,21 @@ class WaypointPath {
     }
     
     func addWaypoint(point: CGPoint) {
-        
-        
-
-
         if waypoints != nil {
             var tmp = waypoints
             while (tmp!.next != nil) {
                 tmp = tmp!.next
             }
             let waypoint = Waypoint(endPoint: point, startPoint: tmp!.waypoint.endCircle.position, scene: self.scene)
-            if self.wall != nil {
-                if self.wall.willCollide(waypoint: waypoint) {
-                    print("Not placing waypoint because it would collide with wall!")
-                    return
-                }
+            if self.collisionManager.doesCollide(waypoint: waypoint) {
+                return
             }
             tmp!.next = WaypointNode(waypoint)
         }
         else {
             let waypoint = Waypoint(endPoint: point, startPoint: player.position, scene: self.scene)
-            if self.wall != nil {
-                if self.wall.willCollide(waypoint: waypoint) {
-                    print("Not placing waypoint because it would collide with wall!")
-                    return
-                }
+            if self.collisionManager.doesCollide(waypoint: waypoint) {
+                return
             }
             waypoints = WaypointNode(waypoint)
             waypoints!.waypoint.startMove(player: player, complete: self.removeHeadWaypoint)
