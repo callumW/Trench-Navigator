@@ -51,11 +51,11 @@ class RockFormation: PolyShape {
                 var thisX: Double = 0.0
                 if (endX < lastX) {
                     thisX = lastX - thisDif
-                    mutatedPoints.append(CGPoint(x: thisX, y: line.c - Double.random(in: 5...10)) + centerPoint)
+                    mutatedPoints.append(CGPoint(x: thisX, y: line.c + Double.random(in: 5...10)) + centerPoint)
                 }
                 else {
                     thisX = lastX + thisDif
-                    mutatedPoints.append(CGPoint(x: thisX, y: line.c + Double.random(in: 5...10)) + centerPoint)
+                    mutatedPoints.append(CGPoint(x: thisX, y: line.c - Double.random(in: 5...10)) + centerPoint)
                 }
                 lastX = thisX
             }
@@ -72,11 +72,11 @@ class RockFormation: PolyShape {
                 var thisY: Double = 0.0
                 if (endY < lastY) {
                     thisY = lastY - thisDif
-                    mutatedPoints.append(CGPoint(x: line.d + Double.random(in: 5...10), y: thisY) + centerPoint)
+                    mutatedPoints.append(CGPoint(x: line.d - Double.random(in: 5...10), y: thisY) + centerPoint)
                 }
                 else {
                     thisY = lastY + thisDif
-                    mutatedPoints.append(CGPoint(x: line.d - Double.random(in: 5...10), y: thisY) + centerPoint)
+                    mutatedPoints.append(CGPoint(x: line.d + Double.random(in: 5...10), y: thisY) + centerPoint)
                 }
                 lastY = thisY
             }
@@ -93,11 +93,11 @@ class RockFormation: PolyShape {
                 var thisX: Double = 0.0
                 if (endX < lastX) {
                     thisX = lastX - thisDif
-                    mutatedPoints.append(CGPoint(x: thisX, y: line.y(thisX) - Double.random(in: 5...10)) + centerPoint)
+                    mutatedPoints.append(CGPoint(x: thisX, y: line.y(thisX) + Double.random(in: 5...10)) + centerPoint)
                 }
                 else {
                     thisX = lastX + thisDif
-                    mutatedPoints.append(CGPoint(x: thisX, y: line.y(thisX) + Double.random(in: 5...10)) + centerPoint)
+                    mutatedPoints.append(CGPoint(x: thisX, y: line.y(thisX) - Double.random(in: 5...10)) + centerPoint)
                 }
                 lastX = thisX
             }
