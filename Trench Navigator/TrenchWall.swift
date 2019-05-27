@@ -15,7 +15,7 @@ enum Side {
     case BOTTOM
 }
 
-class TrenchWall: Hittable, PolyShape {
+class TrenchWall: PolyShape {
 
     
     static let WALL_HEIGHT_RANGE: Double = 30

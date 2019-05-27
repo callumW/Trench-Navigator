@@ -15,6 +15,7 @@ class GameScene: SKScene {
     var wall: Wall! = nil
     var topWall: PolygonSprite! = nil
     var bottomWall: PolygonSprite! = nil
+    var rockFormation: PolygonSprite! = nil
     var collisionManager: CollisionManager! = nil
     
     override func didMove(to view: SKView) {
@@ -31,9 +32,12 @@ class GameScene: SKScene {
         
         self.topWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.TOP))
         self.bottomWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.BOTTOM))
+        self.rockFormation = PolygonSprite(scene: self, shape: RockFormation(scene: self))
+        
         
         self.collisionManager.addObject(obj: self.topWall)
         self.collisionManager.addObject(obj: self.bottomWall)
+        self.collisionManager.addObject(obj: self.rockFormation)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

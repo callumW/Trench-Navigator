@@ -26,9 +26,8 @@ func doesCollideWithShape(points: [CGPoint], waypoint: Waypoint) -> Bool {
     return false
 }
 
-protocol PolyShape {
+protocol PolyShape: Hittable {
     var points: [CGPoint] { get }
-    func doesCollide(waypoint: Waypoint) -> Bool
 }
 
 class PolygonSprite: Hittable {
