@@ -27,8 +27,12 @@ class Line {
     let maxX: Double
     let minY: Double
     let maxY: Double
+    let startPoint: CGPoint
+    let endPoint: CGPoint
     
     init(a: CGPoint, b: CGPoint) {
+        startPoint = a
+        endPoint = b
         // TODO how to meaningfuly check whether line is horizontal / vertical
         if a.x == b.x { // vertical line
             type = LineType.VERTICAL
@@ -178,7 +182,7 @@ class Line {
         return isInY && isInX
     }
     
-    private func y(_ x: Double) -> Double {
+    func y(_ x: Double) -> Double {
         return m * x + c
     }
     
