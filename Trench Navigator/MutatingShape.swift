@@ -24,8 +24,8 @@ class MutatingShape: PolyShape {
         // pick a random line
         let numRuns = Int.random(in: 1...100)
         
-        for index in 0..<numRuns {
-            var lineNum = Int.random(in: 1..<points.count)
+        for _ in 0..<numRuns {
+            let lineNum = Int.random(in: 1..<points.count)
             let line = Line(a: points[lineNum - 1], b: points[lineNum])
             
             // pick a random point away from line

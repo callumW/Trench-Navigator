@@ -45,7 +45,7 @@ class RockFormation: PolyShape {
             print("startx: \(startX), endX: \(endX)")
             var lastX = startX
             mutatedPoints.append(line.startPoint + centerPoint)
-            for i in 0..<numPoints {
+            for _ in 0..<numPoints {
                 let thisDif: Double = Double.random(in: 0..<abs((lastX - endX) * 0.3))
                 
                 var thisX: Double = 0.0
@@ -66,7 +66,7 @@ class RockFormation: PolyShape {
             let endY = Double(line.endPoint.y)
             var lastY = startY
             mutatedPoints.append(line.startPoint + centerPoint)
-            for i in 0..<numPoints {
+            for _ in 0..<numPoints {
                 let thisDif: Double = Double.random(in: 0..<abs((lastY - endY) * 0.3))
                 
                 var thisY: Double = 0.0
@@ -87,7 +87,7 @@ class RockFormation: PolyShape {
             let endX = Double(line.endPoint.x)
             var lastX = startX
             mutatedPoints.append(line.startPoint + centerPoint + centerPoint)
-            for i in 0..<numPoints {
+            for _ in 0..<numPoints {
                 let thisDif: Double = Double.random(in: 0..<abs((lastX - endX) * 0.3))
                 
                 var thisX: Double = 0.0
