@@ -13,8 +13,9 @@ class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
     var waypointPath: WaypointPath!
     var wall: Wall! = nil
-    var topWall: TrenchWall! = nil
-    var bottomWall: TrenchWall! = nil
+    var topWall: PolygonSprite! = nil
+    var bottomWall: PolygonSprite! = nil
+    var rockFormations: [PolygonSprite] = [PolygonSprite]()
     var collisionManager: CollisionManager! = nil
     
     override func didMove(to view: SKView) {
@@ -29,11 +30,19 @@ class GameScene: SKScene {
         
         self.waypointPath = WaypointPath(self, player: player, collisionManager: self.collisionManager)
         
-        self.topWall = TrenchWall(scene: self, side: Side.TOP)
-        self.bottomWall = TrenchWall(scene: self, side: Side.BOTTOM)
+        self.topWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.TOP))
+        self.bottomWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.BOTTOM))
+        
+        let numRocks = Int.random(in: 1...4)
+        for _ in 0..<numRocks {
+            self.rockFormations.append(PolygonSprite(scene: self, shape: RockFormation(scene: self, origin: CGPoint(x: CGFloat.random(in: 0...self.size.width), y: CGFloat.random(in: 0...self.size.height)))))
+        }
         
         self.collisionManager.addObject(obj: self.topWall)
         self.collisionManager.addObject(obj: self.bottomWall)
+        for rock in self.rockFormations {
+            self.collisionManager.addObject(obj: rock)
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B32E46A2290148E00C02419 /* Waypoint.swift */; };
+		1B6F8FC7229D544A0052818C /* MutatingShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6F8FC6229D544A0052818C /* MutatingShape.swift */; };
 		1B8A2CBC2299B4280044A289 /* TrenchWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A2CBB2299B4280044A289 /* TrenchWall.swift */; };
 		1B9126C3229A9ED20044E5BB /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126C2229A9ED20044E5BB /* CollisionManager.swift */; };
 		1B9126C5229AA0960044E5BB /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126C4229AA0960044E5BB /* Queue.swift */; };
 		1B9126C7229AB42B0044E5BB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1B9126C6229AB42B0044E5BB /* .gitignore */; };
 		1B9126CF229AC6BF0044E5BB /* CollisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126CE229AC6BF0044E5BB /* CollisionTests.swift */; };
 		1B9126D6229AC8D00044E5BB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907E122947DDB00CF2239 /* Line.swift */; };
+		1B9126D8229AF7350044E5BB /* PolygonSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126D7229AF7350044E5BB /* PolygonSprite.swift */; };
+		1B9126DA229B0B7F0044E5BB /* RockFormation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126D9229B0B7F0044E5BB /* RockFormation.swift */; };
 		1BB907E02294652000CF2239 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907DF2294652000CF2239 /* Wall.swift */; };
 		1BB907E222947DDB00CF2239 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907E122947DDB00CF2239 /* Line.swift */; };
 		1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D792228DE548007D26F5 /* AppDelegate.swift */; };
@@ -37,6 +40,7 @@
 /* Begin PBXFileReference section */
 		1B0422F1228F36D5005C01C5 /* Submarine.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Submarine.xcf; sourceTree = "<group>"; };
 		1B32E46A2290148E00C02419 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
+		1B6F8FC6229D544A0052818C /* MutatingShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingShape.swift; sourceTree = "<group>"; };
 		1B8A2CBB2299B4280044A289 /* TrenchWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrenchWall.swift; sourceTree = "<group>"; };
 		1B9126C2229A9ED20044E5BB /* CollisionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		1B9126C4229AA0960044E5BB /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 		1B9126CC229AC6BF0044E5BB /* CollisionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollisionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B9126CE229AC6BF0044E5BB /* CollisionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionTests.swift; sourceTree = "<group>"; };
 		1B9126D0229AC6BF0044E5BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B9126D7229AF7350044E5BB /* PolygonSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonSprite.swift; sourceTree = "<group>"; };
+		1B9126D9229B0B7F0044E5BB /* RockFormation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFormation.swift; sourceTree = "<group>"; };
 		1BB907DF2294652000CF2239 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		1BB907E122947DDB00CF2239 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		1BF4D78F228DE548007D26F5 /* Trench Navigator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trench Navigator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +133,9 @@
 				1B8A2CBB2299B4280044A289 /* TrenchWall.swift */,
 				1B9126C2229A9ED20044E5BB /* CollisionManager.swift */,
 				1B9126C4229AA0960044E5BB /* Queue.swift */,
+				1B9126D7229AF7350044E5BB /* PolygonSprite.swift */,
+				1B9126D9229B0B7F0044E5BB /* RockFormation.swift */,
+				1B6F8FC6229D544A0052818C /* MutatingShape.swift */,
 			);
 			path = "Trench Navigator";
 			sourceTree = "<group>";
@@ -243,11 +252,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B9126C3229A9ED20044E5BB /* CollisionManager.swift in Sources */,
+				1B9126DA229B0B7F0044E5BB /* RockFormation.swift in Sources */,
 				1B8A2CBC2299B4280044A289 /* TrenchWall.swift in Sources */,
 				1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */,
 				1BF4D799228DE548007D26F5 /* GameScene.swift in Sources */,
 				1BB907E02294652000CF2239 /* Wall.swift in Sources */,
+				1B9126D8229AF7350044E5BB /* PolygonSprite.swift in Sources */,
 				1BF4D79B228DE548007D26F5 /* GameViewController.swift in Sources */,
+				1B6F8FC7229D544A0052818C /* MutatingShape.swift in Sources */,
 				1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */,
 				1B9126C5229AA0960044E5BB /* Queue.swift in Sources */,
 				1BB907E222947DDB00CF2239 /* Line.swift in Sources */,
