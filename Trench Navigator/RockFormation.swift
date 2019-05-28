@@ -18,8 +18,8 @@ class RockFormation: PolyShape {
     var points: [CGPoint] = [CGPoint]()
     let centerPoint: CGPoint
     
-    init(scene: GameScene) {
-        centerPoint = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+    init(scene: GameScene, origin: CGPoint) {
+        centerPoint = origin
         
         // start with a square
         let baseShape: [CGPoint] = [
