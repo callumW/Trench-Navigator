@@ -32,8 +32,8 @@ class GameScene: SKScene {
         
         self.topWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.TOP))
         self.bottomWall = PolygonSprite(scene: self, shape: TrenchWall(scene: self, side: Side.BOTTOM))
-        self.rockFormation = PolygonSprite(scene: self, shape: MutatingShape(originPoint: CGPoint(x: 100, y: 100)))
-        
+        // self.rockFormation = PolygonSprite(scene: self, shape: MutatingShape(originPoint: CGPoint(x: 100, y: 100)))
+        self.rockFormation = PolygonSprite(scene: self, shape: RockFormation(scene: self))
         
         self.collisionManager.addObject(obj: self.topWall)
         self.collisionManager.addObject(obj: self.bottomWall)

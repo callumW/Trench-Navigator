@@ -22,53 +22,57 @@ class MutatingShape: PolyShape {
         ]
         
         // pick a random line
-        var lineNum = Int.random(in: 1..<points.count - 1)
-        let line = Line(a: points[lineNum - 1], b: points[lineNum])
+        let numRuns = Int.random(in: 1...100)
         
-        // pick a random point away from line
-        
-        switch line.type {
-        case .GRADIENT:
-            if line.endPoint.x > line.startPoint.x {
-                /*
-                    Note: We should really increase the y value perpendicular to the line, rather than to the x axis
-                */
-                // chose point below
-                let newX = Double.random(in: Double(line.startPoint.x)...Double(line.endPoint.x))
-                let newY = line.y(newX) - 10
-                points.insert(CGPoint(x: newX, y: newY), at: lineNum)
-            }
-            else {
-                // chose point above
-                let newX = Double.random(in: Double(line.endPoint.x)...Double(line.startPoint.x))
-                let newY = line.y(newX) + 10
-                points.insert(CGPoint(x: newX, y: newY), at: lineNum)
-            }
-        case .HORIZONTAL:
-            if line.endPoint.x > line.startPoint.x {
-                // chose point below
-                let newX = Double.random(in: Double(line.startPoint.x)...Double(line.endPoint.x))
-                let newY = line.c - 10
-                points.insert(CGPoint(x: newX, y: newY), at: lineNum)
-            }
-            else {
-                // chose point above
-                let newX = Double.random(in: Double(line.endPoint.x)...Double(line.startPoint.x))
-                let newY = line.c + 10
-                points.insert(CGPoint(x: newX, y: newY), at: lineNum)
-            }
-        case .VERTICAL:
-            if line.endPoint.y > line.startPoint.y {
-                // choose point to left
-                let newY = Double.random(in: Double(line.startPoint.y)...Double(line.endPoint.y))
-                let newX = line.d - 10
-                points.insert(CGPoint(x: newX, y: newY), at: lineNum)
-            }
-            else {
-                // chose point to right
-                let newY = Double.random(in: Double(line.endPoint.y)...Double(line.startPoint.y))
-                let newX = line.d + 10
-                points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+        for index in 0..<numRuns {
+            var lineNum = Int.random(in: 1..<points.count)
+            let line = Line(a: points[lineNum - 1], b: points[lineNum])
+            
+            // pick a random point away from line
+            
+            switch line.type {
+            case .GRADIENT:
+                if line.endPoint.x > line.startPoint.x {
+                    /*
+                        Note: We should really increase the y value perpendicular to the line, rather than to the x axis
+                    */
+                    // chose point below
+                    let newX = Double.random(in: Double(line.startPoint.x)...Double(line.endPoint.x))
+                    let newY = line.y(newX) - 10
+                    points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+                }
+                else {
+                    // chose point above
+                    let newX = Double.random(in: Double(line.endPoint.x)...Double(line.startPoint.x))
+                    let newY = line.y(newX) + 10
+                    points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+                }
+            case .HORIZONTAL:
+                if line.endPoint.x > line.startPoint.x {
+                    // chose point below
+                    let newX = Double.random(in: Double(line.startPoint.x)...Double(line.endPoint.x))
+                    let newY = line.c - 10
+                    points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+                }
+                else {
+                    // chose point above
+                    let newX = Double.random(in: Double(line.endPoint.x)...Double(line.startPoint.x))
+                    let newY = line.c + 10
+                    points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+                }
+            case .VERTICAL:
+                if line.endPoint.y > line.startPoint.y {
+                    // choose point to left
+                    let newY = Double.random(in: Double(line.startPoint.y)...Double(line.endPoint.y))
+                    let newX = line.d - 10
+                    points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+                }
+                else {
+                    // chose point to right
+                    let newY = Double.random(in: Double(line.endPoint.y)...Double(line.startPoint.y))
+                    let newX = line.d + 10
+                    points.insert(CGPoint(x: newX, y: newY), at: lineNum)
+                }
             }
         }
         
