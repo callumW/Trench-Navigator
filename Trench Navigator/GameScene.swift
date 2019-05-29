@@ -11,6 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "Submarine")
+    let mine = SKSpriteNode(imageNamed: "naval-mine")
     var waypointPath: WaypointPath!
     var wall: Wall! = nil
     var topWall: PolygonSprite! = nil
@@ -24,7 +25,10 @@ class GameScene: SKScene {
         player.position = CGPoint(x: player.size.height / 2, y: size.height * 0.5)
         player.zRotation = CGFloat.pi * 1.5;
         
+        mine.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        
         addChild(player)
+        addChild(mine)
         
         self.collisionManager = CollisionManager(scene: self)
         

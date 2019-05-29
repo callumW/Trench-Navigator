@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B32E46A2290148E00C02419 /* Waypoint.swift */; };
+		1B6B00C1229F0C5B00F57967 /* naval-mine.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 1B6B00C0229F0C5B00F57967 /* naval-mine.xcf */; };
 		1B6F8FC7229D544A0052818C /* MutatingShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6F8FC6229D544A0052818C /* MutatingShape.swift */; };
 		1B8A2CBC2299B4280044A289 /* TrenchWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A2CBB2299B4280044A289 /* TrenchWall.swift */; };
 		1B9126C3229A9ED20044E5BB /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126C2229A9ED20044E5BB /* CollisionManager.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		1B0422F1228F36D5005C01C5 /* Submarine.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Submarine.xcf; sourceTree = "<group>"; };
 		1B32E46A2290148E00C02419 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
+		1B6B00C0229F0C5B00F57967 /* naval-mine.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "naval-mine.xcf"; sourceTree = "<group>"; };
 		1B6F8FC6229D544A0052818C /* MutatingShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutatingShape.swift; sourceTree = "<group>"; };
 		1B8A2CBB2299B4280044A289 /* TrenchWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrenchWall.swift; sourceTree = "<group>"; };
 		1B9126C2229A9ED20044E5BB /* CollisionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		1B0422F0228F30A6005C01C5 /* Gimp Projects */ = {
 			isa = PBXGroup;
 			children = (
+				1B6B00C0229F0C5B00F57967 /* naval-mine.xcf */,
 				1B0422F1228F36D5005C01C5 /* Submarine.xcf */,
 			);
 			path = "Gimp Projects";
@@ -230,6 +233,7 @@
 			files = (
 				1B9126C7229AB42B0044E5BB /* .gitignore in Resources */,
 				1BF4D79E228DE548007D26F5 /* Main.storyboard in Resources */,
+				1B6B00C1229F0C5B00F57967 /* naval-mine.xcf in Resources */,
 				1BF4D7A0228DE549007D26F5 /* Assets.xcassets in Resources */,
 				1BF4D7A3228DE549007D26F5 /* LaunchScreen.storyboard in Resources */,
 			);
