@@ -18,6 +18,7 @@
 		1B9126D6229AC8D00044E5BB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907E122947DDB00CF2239 /* Line.swift */; };
 		1B9126D8229AF7350044E5BB /* PolygonSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126D7229AF7350044E5BB /* PolygonSprite.swift */; };
 		1B9126DA229B0B7F0044E5BB /* RockFormation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9126D9229B0B7F0044E5BB /* RockFormation.swift */; };
+		1BAAC48322A6B22C00480165 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAAC48222A6B22C00480165 /* Math.swift */; };
 		1BB907E02294652000CF2239 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907DF2294652000CF2239 /* Wall.swift */; };
 		1BB907E222947DDB00CF2239 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB907E122947DDB00CF2239 /* Line.swift */; };
 		1BF4D793228DE548007D26F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4D792228DE548007D26F5 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 		1BF4D79E228DE548007D26F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF4D79C228DE548007D26F5 /* Main.storyboard */; };
 		1BF4D7A0228DE549007D26F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF4D79F228DE549007D26F5 /* Assets.xcassets */; };
 		1BF4D7A3228DE549007D26F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF4D7A1228DE549007D26F5 /* LaunchScreen.storyboard */; };
+		1BFE8AE122A5633600ED764E /* NavalMine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFE8AE022A5633600ED764E /* NavalMine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,7 @@
 		1B9126D0229AC6BF0044E5BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B9126D7229AF7350044E5BB /* PolygonSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonSprite.swift; sourceTree = "<group>"; };
 		1B9126D9229B0B7F0044E5BB /* RockFormation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFormation.swift; sourceTree = "<group>"; };
+		1BAAC48222A6B22C00480165 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		1BB907DF2294652000CF2239 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		1BB907E122947DDB00CF2239 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		1BF4D78F228DE548007D26F5 /* Trench Navigator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trench Navigator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +65,7 @@
 		1BF4D79F228DE549007D26F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BF4D7A2228DE549007D26F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BF4D7A4228DE549007D26F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BFE8AE022A5633600ED764E /* NavalMine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavalMine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,8 @@
 				1B9126D7229AF7350044E5BB /* PolygonSprite.swift */,
 				1B9126D9229B0B7F0044E5BB /* RockFormation.swift */,
 				1B6F8FC6229D544A0052818C /* MutatingShape.swift */,
+				1BFE8AE022A5633600ED764E /* NavalMine.swift */,
+				1BAAC48222A6B22C00480165 /* Math.swift */,
 			);
 			path = "Trench Navigator";
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 			files = (
 				1B9126C3229A9ED20044E5BB /* CollisionManager.swift in Sources */,
 				1B9126DA229B0B7F0044E5BB /* RockFormation.swift in Sources */,
+				1BFE8AE122A5633600ED764E /* NavalMine.swift in Sources */,
+				1BAAC48322A6B22C00480165 /* Math.swift in Sources */,
 				1B8A2CBC2299B4280044A289 /* TrenchWall.swift in Sources */,
 				1B32E46B2290148E00C02419 /* Waypoint.swift in Sources */,
 				1BF4D799228DE548007D26F5 /* GameScene.swift in Sources */,
