@@ -10,10 +10,6 @@ import Foundation
 import UIKit
 import SpriteKit
 
-func distance(_ a: CGPoint,_ b: CGPoint) -> CGFloat {
-    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2))
-}
-
 
 class Waypoint {
     var endCircle: SKShapeNode = SKShapeNode(circleOfRadius: 3)
