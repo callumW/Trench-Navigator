@@ -14,4 +14,4 @@ tap inside of walls or obstacles. Video here: https://youtu.be/ysos4tfBXz8
 I did make some progress with seamines, I made a little object that chases the player if they get
 within its range (signified with a red circle). Video here: https://youtu.be/5kbdYRBtjO0
 
-![gamescreen](mainscreen.png)
+![gamescreen](./mainscreen.PNG)
